@@ -8,5 +8,8 @@
   },
   "author1": "Jeremiah Dunphy",
   "author2": "Thien-Bao Bui",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.8.0"
+  }
 }
