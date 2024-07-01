@@ -1,6 +1,6 @@
 import express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
-import dotenv from 'dotenv';
+import dotenv, { parse } from 'dotenv';
 import cors from 'cors';
 
 // Load in dotenv values
@@ -40,69 +40,91 @@ app.get('/api/planets', async (req, res) => {
 });
 
 app.get('/api/characters/:id', async (req, res) => {
-  const character_id = req.params.id;
+  const character_id = parseInt(req.params.id);
   console.log("Character ID: ", character_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
   const collection = db.collection("characters");
-  const data = collection.findOne({"id": character_id});
+  const data = await collection.findOne({id: character_id});
   res.json(data);
 });
 
 app.get('/api/films/:id', async (req, res) => {
+  const film_id = parseInt(req.params.id);
+  console.log("Film ID: ", film_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const collection = db.collection("films");
+  const data = await collection.findOne({id: film_id});
+  res.json(data);
 });
 
 app.get('/api/planets/:id', async (req, res) => {
+  const planet_id = parseInt(req.params.id);
+  console.log("Planet ID: ", planet_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const collection = db.collection("planets");
+  const data = await collection.findOne({id: planet_id});
+  res.json(data);
 });
 
 app.get('/api/films/:id/characters', async (req, res) => {
+  const film_id = parseInt(req.params.id);
+  console.log("Film ID: ", film_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const collection = db.collection("films_characters");
+  const data = await collection.find({film_id: film_id}).toArray();
+  res.json(data);
 });
 
 app.get('/api/films/:id/planets', async (req, res) => {
+  const film_id = parseInt(req.params.id);
+  console.log("Film ID: ", film_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const collection = db.collection("films_planets");
+  const data = await collection.find({film_id: film_id}).toArray();
+  res.json(data);
 });
 
 app.get('/api/characters/:id/films', async (req, res) => {
+  const character_id = parseInt(req.params.id);
+  console.log("Character ID: ", character_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const collection = db.collection("films_characters");
+  const data = await collection.find({character_id: character_id}).toArray();
+  res.json(data);
 });
 
 app.get('/api/planets/:id/films', async (req, res) => {
+  const planet_id = parseInt(req.params.id);
+  console.log("Planet ID: ", planet_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const collection = db.collection("films_planets");
+  const data = await collection.find({planet_id: planet_id}).toArray();
+  res.json(data);
 });
 
 app.get('/api/planets/:id/characters', async (req, res) => {
+  const planet_id = parseInt(req.params.id);
+  console.log("Planet ID: ", planet_id);
+
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
-  const collection = db.collection(collectionName); // todo: change
-  const data = await collection.find({}).toArray();
-  res.json();
+  const data = await db.collection("characters").find({homeworld: planet_id}).toArray();
+
+  res.json(data);
 });
 
 app.listen(PORT, () => {
