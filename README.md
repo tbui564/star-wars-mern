@@ -5,5 +5,4 @@ Contributors: Jeremiah Dunphy, Thien-Bao Bui
 1. `cd` into /data
 2. Replace [filename] with the following: characters, films, planets, films_characters, and films_planets
 
-mongoimport --uri mongodb://localhost:27017/swapi --collection films --file [filename].json
- --jsonArray --drop
+mongoimport --uri mongodb://localhost:27017/swapi --collection [filename] --file [filename].json --jsonArray --drop
