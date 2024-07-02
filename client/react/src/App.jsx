@@ -12,9 +12,8 @@ import {
 } from "react-router-dom";
 
 function App() {
-  // TODO: Create a state to store character JSON data so we don't have to keep calling fetch
-  // NOTE: This state most likely needs to be passed down to Characters.jsx and conditionally checked
   const [count, setCount] = useState(0);
+  const [characterData, setCharacterData] = useState([]);
 
   return (
     <>
@@ -23,7 +22,9 @@ function App() {
           <Link to="/">Main Page</Link>
         </div>
         <Routes>
-          <Route exact path="/" element={<Characters />}></Route>
+          <Route exact path="/" element={
+            <Characters characterData={characterData} setCharacterData={setCharacterData} />
+          }></Route>
           <Route path="character/:id" element={<Character />}></Route>
         </Routes>
       </Router>

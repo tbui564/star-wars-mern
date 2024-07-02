@@ -24,20 +24,20 @@ const fetchCharacterbyId = async (id) => {
   }
 };
 
-const Characters = () => {
-  const [data, setData] = useState([])
-  
-  const clickCard = (character) => {
-    fetchCharacterbyId(character?.id);
-  }
+const clickCard = (character) => {
+  fetchCharacterbyId(character?.id);
+}
 
+const Characters = (props) => {
   useEffect(() => {
-    fetchCharacters(data, setData);
+    if (props.characterData.length < 1) { // empty characterData
+      fetchCharacters(props.characterData, props.setCharacterData);
+    }
   }, []);
  
   return (
     <>
-      {data.map(character => <CharacterCard character={character} onClick={clickCard} /> )}
+      {props.characterData.map(character => <CharacterCard character={character} onClick={clickCard} /> )}
     </>
   )
 }
