@@ -13,9 +13,26 @@ const fetchCharacters = async (data, setData) => {
     console.error(error.message);
   }
 };
+const fetchCharacterbyId = async (id) => {
+  const url = `http://localhost:3000/api/characters/${id}`;
+  try {
+   
+   
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 
 const Character = () => {
   const [data, setData] = useState([])
+  
+  
+  const clickCard = (e) => {
+    e.preventDefault();
+    fetchCharacterbyId(e.data.id);
+
+  }
 
   useEffect(() => {
     fetchCharacters(data, setData);
@@ -25,7 +42,7 @@ const Character = () => {
 
   return (
     <>
-    {data.map(character => <CharacterCard character={character} />)}
+    {data.map(character => <CharacterCard character={character} onClick={clickCard} />)}
     </>
   )
 }
