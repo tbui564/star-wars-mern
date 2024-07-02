@@ -25,7 +25,9 @@ function App() {
           <Route exact path="/" element={
             <Characters characterData={characterData} setCharacterData={setCharacterData} />
           }></Route>
-          <Route path="character/:id" element={<Character />}></Route>
+          <Route path="character/:id" element={
+            <Character characterData={characterData} />
+          }></Route>
         </Routes>
       </Router>
     </>

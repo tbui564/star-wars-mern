@@ -1,6 +1,15 @@
 import { React, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+const objectIsEmpty = (obj) => {
+    for (const prop in obj) {
+        if (Object.hasOwn(obj, prop)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 const fetchCharacterData = async (id, data, setData) => {
     const url = `http://localhost:3000/api/characters/${id}`;
     try {
@@ -12,12 +21,23 @@ const fetchCharacterData = async (id, data, setData) => {
     }
 };
 
-const Character = () => {
+const Character = (props) => {
     const { id }  = useParams();
     const [character, setCharacter] = useState({});
 
     useEffect(() => {
-        fetchCharacterData(id, character, setCharacter);
+        if (props.characterData.length < 1) {
+            console.log("Character data is empty, doing an individual fetch");
+            fetchCharacterData(id, character, setCharacter);
+        } else if (objectIsEmpty(character)) {
+            for (const index in props.characterData) {
+                console.log(typeof id);
+                if (props.characterData[index].id == id) {
+                    setCharacter(props.characterData[index]);
+                    break;
+                }
+            }            
+        }
     }, []);
 
     return (
