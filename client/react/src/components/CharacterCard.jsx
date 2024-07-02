@@ -1,7 +1,10 @@
 import React from "react";
-const CharacterCard = ({ character }) => {
+import { Link } from "react-router-dom";
+
+const CharacterCard = ({ character, onClick }) => {
     return (
-        <div className="character-card">
+        <Link to={`character/${character?.id}`}>
+        <div className="character-card" onClick={() => {onClick(character)}}>
             <h2>{character?.name}</h2>
             <ul>
                 <li>ID: {character?.id}</li>
@@ -16,6 +19,7 @@ const CharacterCard = ({ character }) => {
                 <li>Birth: {character?.birth_year}</li>
             </ul>
         </div>
+        </Link>
     )
 }
 
