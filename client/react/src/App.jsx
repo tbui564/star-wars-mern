@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 
 function App() {
+  // TODO: Create a state to store character JSON data so we don't have to keep calling fetch
+  // NOTE: This state most likely needs to be passed down to Characters.jsx and conditionally checked
   const [count, setCount] = useState(0);
 
   return (
