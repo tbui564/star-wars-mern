@@ -8,17 +8,17 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link
+  Link,
 } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
       <Router>
         <div>
-          <Link to="/">Characters</Link>
+          <Link to="/">Main Page</Link>
         </div>
         <Routes>
           <Route exact path="/" element={<Characters />}></Route>
